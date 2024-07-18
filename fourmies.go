@@ -19,13 +19,17 @@ type Fourmie struct {
 }
 
 func InitLinks(){
-	r1.Links =  []Room{start}
-	r2.Links = []Room{start}
-	r3.Links = []Room{start}
-	r4.Links = []Room{start}
+	r1.Links =  []Room{start, r3}
+	r2.Links = []Room{start,r3,r4}
+	r3.Links = []Room{r1,r2,end}
+	r4.Links = []Room{r3,end}
 }
 
 func InitFourmie() Fourmie {
 	nb_fourmies++
 	return Fourmie{Name: "F" + strconv.Itoa(nb_fourmies), Pos: start, Path: path}
+}
+
+func ManageMoves(f Fourmie){
+	
 }
