@@ -1,26 +1,43 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strconv"
+)
 
 var TFourmies []Fourmie
-var turn int = 0
 
 func main() {
 	InitLinks()
-	for range 5 {
+	if len(os.Args) == 1{
+		return
+	}
+	n,_ := strconv.Atoi(os.Args[1])
+	turn := 0
+	
+	//création de n fourmies
+	for f := 0 ; f < n; f++{
 		TFourmies = append(TFourmies, InitFourmie())
 	}
-	for i := 0; i<= 3; i++{
-		for _, f := range TFourmies {
-			ManageMoves(f)
+		
+	for {
+		for i := range TFourmies {
+				TFourmies[i].ManageMoves()
+				fmt.Println(TFourmies[i].Name + " : " + TFourmies[i].Pos.Name)
 		}
+		fmt.Println("-------")
 		turn++
+
+		if TFourmies[len(TFourmies)-1].Pos.Name == "end"{
+			fmt.Println(turn)
+			break
+		}
 	}
-	fmt.Println(turn)
 }
 
 type Room struct {
 	Name     string
 	Occupied bool
-	Links    []Room
+	Links    []*Room
 }
